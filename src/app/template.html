@@ -1,0 +1,133 @@
+<div class="text-white m-2">
+    <div [ngClass]="getClassesByPosition(0)">
+      The first product is {{getProductByPosition(0).name}}.
+    </div>
+    <div [ngClass]="getClassesByPosition(1)">
+      The second product is {{getProductByPosition(1).name}}
+    </div>
+</div>
+
+<div [ngClass]="getClasses()">
+        Hello,World!
+</div>
+
+<div [ngClass]="'text-white m-2 p-2' +getClasses()">
+    Hello,World!
+</div>
+
+<div class="form-group m-2">
+<label>Name</label>
+<input class="from-control" [value]="model.getProduct(1)?.name || 'None'" />
+</div>
+
+<table class="table table-sm table-bordered table-striped mt-2">
+    <tr>
+        <th>1</th> <th>2</th> <th>3</th> <th>4</th> <th>5</th>
+    </tr>
+    <tr>
+        <td [attr.colspan]="model.getProducts().length">
+            {{model.getProduct(1)?.name || 'None'}}
+        </td>
+    </tr>
+</table>
+
+<div class="text-white m-2">
+    <div class="p-2 bg-warning">
+        The <span [style.fontSize]="fontSizeWithUnits">frist</span>
+        product is {{model.getProduct(1).name}}
+    </div>
+    <div class="p-2 bg-info">
+            The <span [style.fontSize.px]="fontSizeWithoutUnits">second</span>
+            product is {{model.getProduct(2).name}}
+    </div>
+</div>
+
+<!-- 13 -->
+Ch13
+<div class="text-white m-2">
+    <div class="p-2 bg-warning">
+        There are {{getProductCount()}} products.
+    </div>
+
+    <h3 style="color:black;">ngIf</h3>
+    <div *ngIf="getProductCount() >4" class="bg-info p-2 mt-1">
+            There are more 4 products.
+    </div>
+
+    <div *ngIf="getProductByPosition(0).name!='Kayak'" class="bg-info p-2 mt-1">
+            The frist products isn't Kayak.
+    </div> 
+    
+    <h3 style="color:black;">ngSwitch</h3>
+    <div class="bg-info p-2 mt-1" [ngSwitch]="getProductCount()">
+           <span *ngSwitchCase="2">There are Two</span>
+           <span *ngSwitchCase="5">There are five</span>
+           <span *ngSwitchDefault>There is Default</span>
+    </div>
+
+    <h3 style="color:black;">ngFor</h3>
+    <table class="table table-sm table-bordered mt-1 text-dark">
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of getProducts()"> 
+            <td>{{item.name}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+    </table>
+
+    <h3 style="color:black;">ngFor:odd:even</h3>
+    <table class="table table-sm table-bordered mt-1 text-dark">
+        <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+        </tr>
+        <tr *ngFor="let item of getProducts(); let i =index; let odd=odd" 
+        [class.bg-primary]="odd" [class.bg-info]="!odd"> 
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.price}}</td>
+        </tr>
+    </table>
+
+    <h3 style="color:black;">ngTemplateOutlet1</h3>
+    <ng-template #titleTemplate>
+        <h4 class="p-2 bg-success text-white">Repeated Content</h4>
+    </ng-template>
+
+    <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+        <div class=" bg-info p-2 m-2 text-white">
+        There are {{getProductCount()}} products.
+        </div>
+    <ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+
+    <h3 style="color:black;">ngTemplateOutlet2</h3>
+    <ng-template #titleTemplate2 let-text="title">
+        <h4 class="p-2 bg-success text-white">{{text}}</h4>
+    </ng-template>
+
+    <ng-template [ngTemplateOutlet]="titleTemplate2"
+                 [ngTemplateOutletContext]="{title:'Header'}">
+    </ng-template>
+
+        <div class=" bg-info p-2 m-2 text-white">
+        There are {{getProductCount()}} products.
+        </div>
+
+    <ng-template [ngTemplateOutlet]="titleTemplate2"
+                 [ngTemplateOutletContext]="{title:'Footer'}">
+    </ng-template>
+
+    <div class="bg-info p-2">
+       The rounded price is{{getProductPrice(1)}}
+    </div>
+</div>
+
+
+
